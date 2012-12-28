@@ -1,13 +1,13 @@
 div#title {
-  text-align: center
+  text-align: center;
 }
 
 div#map {
   width: 80%;
   height: 300px;
-  background-image: url('map_placeholder.jpg')
+  background-image: url('map_placeholder.jpg');
 }
 
 div#people {
-  width: 20%
+  width: 20%;
 }
