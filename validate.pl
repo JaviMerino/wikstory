@@ -1,7 +1,10 @@
 #!/usr/bin/perl
 
-use WebService::Validator::HTML::W3C;
 use common::sense;
+use File::Slurp;
+
+use WebService::Validator::HTML::W3C;
+use WebService::Validator::CSS::W3C;
 
 sub print_val_results($$$)
 {
@@ -36,8 +39,19 @@ sub validate_html()
     print_val_results($v, $ret, $file);
 }
 
+sub validate_css()
+{
+    my $fname = "screen_desktop.css";
+    my $css = read_file($fname);
+    my $v = WebService::Validator::CSS::W3C->new();
+
+    my $ret = $v->validate(string => $css);
+    print_val_results($v, $ret, $fname);
+}
+
 my $ret = 0;
 
 $ret |= validate_html();
+$ret |= validate_css();
 
 exit($ret);
