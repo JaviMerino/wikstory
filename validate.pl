@@ -3,19 +3,16 @@
 use WebService::Validator::HTML::W3C;
 use common::sense;
 
-sub validate_html()
+sub print_val_results($$$)
 {
-    my $file = "wwii.html";
-    my $v = WebService::Validator::HTML::W3C->new(
-        detailed    =>  1
-        );
+    my ($v, $ret, $fname) = @_;
 
-    if ($v->validate_file($file)) {
+    if ($ret) {
         if ($v->is_valid) {
-            printf("$file is valid\n");
+            printf("$fname is valid\n");
             return 0;
         } else {
-            printf("$file is not valid\n");
+            printf("$fname is not valid\n");
             foreach my $error (@{$v->errors}) {
                 printf("%s at line %d\n", $error->msg,
                        $error->line);
@@ -26,6 +23,17 @@ sub validate_html()
         printf("Failed to validate the file: %s\n", $v->validator_error);
         return -1;
     }
+}
+
+sub validate_html()
+{
+    my $file = "wwii.html";
+    my $v = WebService::Validator::HTML::W3C->new(
+        detailed    =>  1
+        );
+
+    my $ret = $v->validate_file($file);
+    print_val_results($v, $ret, $file);
 }
 
 my $ret = 0;
