@@ -22,8 +22,10 @@ div#people {
 
 div.person {
   padding: 5px;
+}
+
+div.person:hover {
   background-color: #c4d8ff;
-  margin-bottom: 2px;
 }
 
 img.person_avatar {
