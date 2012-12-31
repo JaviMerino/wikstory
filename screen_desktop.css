@@ -7,6 +7,19 @@ div#title {
   text-align: center;
 }
 
+div#timeline {
+  text-align: center;
+  margin: 20px 0px;
+}
+
+div#selected_year {
+  font-size: 32px;
+}
+
+input#timeline_range {
+    width: 60%;
+}
+
 div#map {
   margin-right: 200px;
   height: 300px;
