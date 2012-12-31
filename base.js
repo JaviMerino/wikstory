@@ -10,6 +10,7 @@ function show_person(n, name, show) {
 function updateTimer(year)
 {
     document.getElementById("selected_year").innerHTML = year;
+    document.getElementById("map").src = "img/maps/" + year + ".png";
 
     var people = document.getElementById("people").getElementsByClassName("person");
     var i;

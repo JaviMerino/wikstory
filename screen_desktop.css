@@ -23,7 +23,7 @@ input#timeline_range {
 div#map_container {
   margin-right: 200px;
   height: 300px;
-  background-image: url('map_placeholder.jpg');
+  overflow: hidden;
 }
 
 div#people {
