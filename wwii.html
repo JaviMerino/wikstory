@@ -3,6 +3,7 @@
 <head>
   <title>Wikstory draft</title>
   <link rel="stylesheet" type="text/css" href="screen_desktop.css" />
+  <script src="base.js"></script>
   <meta charset="UTF-8" />
 </head>
 <body>
@@ -12,7 +13,9 @@
   <div id="timeline">
     <div id="selected_year">1939</div>
     <div id="timeline_slider">
-      1939 <input type="range" min="1939" max="1945" value="1939" id="timeline_range"/> 1945
+      1939
+      <input type="range" min="1939" max="1945" value="1939" id="timeline_range" onChange="updateTimer(this.value)"/>
+      1945
     </div>
   </div>
   <div id="people">
