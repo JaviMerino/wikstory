@@ -24,6 +24,7 @@ function updateTimer(year)
 
 function showShortBio()
 {
+    cancelCloseShortBio();
     document.getElementById("short_bio_hitler").style.display = "";
 }
 
@@ -32,12 +33,19 @@ function closeShortBio(shortBioNode)
     shortBioNode.style.display = "none";
 }
 
-function closeShortBioMouse()
+var myTimeout;
+function closeShortBioMaybe()
 {
-    //closeShortBio(document.getElementById("short_bio_hitler"));
+    myTimeout = setTimeout(function() {closeShortBio(document.getElementById("short_bio_hitler"))},
+                           100);
 }
 
 function closeShortBioButton(button)
 {
     closeShortBio(button.parentNode.parentNode.parentNode);
+}
+
+function cancelCloseShortBio()
+{
+    clearTimeout(myTimeout);
 }

@@ -20,7 +20,7 @@
   </div>
   <div id="mapnpeople">
     <div id="people">
-      <div class="short_bio_overlay" id="short_bio_hitler" style="display:none">
+      <div class="short_bio_overlay" id="short_bio_hitler" style="display:none" onMouseOver="cancelCloseShortBio();" onMouseOut="closeShortBioMaybe();">
         <img class="short_bio_right_arrow" src="img/right_arrow.png" alt="right arrow"/>
         <div class="short_bio">
           <p class="short_bio_close">
@@ -39,11 +39,9 @@
           <a href="http://en.wikipedia.org/Adolf_Hitler">Read more...</a> | <a href="#">Edit</a>
         </div>
       </div>
-      <div class="person" id="person_hitler">
-        <a class="name_link" href="#" onClick="showShortBio();return false;" onMouseOver="showShortBio();" onMouseOut="closeShortBioMouse();">
-          <img class="person_avatar" src="img/avatars/hitler.jpg" alt="Hitler" />
-          <p class="name">Adolf Hitler</p>
-        </a>
+      <div class="person" id="person_hitler" onMouseOver="showShortBio();" onMouseOut="closeShortBioMaybe();">
+        <img class="person_avatar" src="img/avatars/hitler.jpg" alt="Hitler" />
+        <p class="name">Adolf Hitler</p>
       </div>
       <div class="person" id="person_stalin">
         <img class="person_avatar" src="img/avatars/stalin.jpg" alt="Stalin" />

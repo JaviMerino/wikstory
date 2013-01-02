@@ -45,11 +45,6 @@ div.person:hover {
   background-color: #c4d8ff;
 }
 
-div.person a.name_link {
-  text-decoration: none;
-  color: black;
-}
-
 img.person_avatar {
   height: 28px;
   width: 28px;
