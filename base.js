@@ -22,6 +22,21 @@ function updateTimer(year)
     }
 }
 
+function showShortBio()
+{
+    document.getElementById("short_bio_hitler").style.display = "";
+}
+
+function _closeShortBio(shortBioNode)
+{
+    shortBioNode.style.display = "none";
+}
+
+function closeShortBioMouse()
+{
+    //_closeShortBio(document.getElementById("short_bio_hitler"));
+}
+
 function closeShortBio(button)
 {
     button.parentNode.parentNode.parentNode.style.display = "none";
