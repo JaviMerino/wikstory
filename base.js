@@ -1,4 +1,4 @@
-function show_person(n, name, show) {
+function showPerson(n, name, show) {
     if (n.innerText.indexOf(name) != -1) {
         if (show)
             n.style.display = "";
@@ -16,9 +16,9 @@ function updateTimer(year)
     var i;
     for (i = 0; i < people.length; i++) {
         var childNode = people[i];
-        show_person(childNode, "Churchill", year >= 1940);
-        show_person(childNode, "Stalin", year >= 1941);
-        show_person(childNode, "Roosevelt", year >= 1941);
+        showPerson(childNode, "Churchill", year >= 1940);
+        showPerson(childNode, "Stalin", year >= 1941);
+        showPerson(childNode, "Roosevelt", year >= 1941);
     }
 }
 
