@@ -27,17 +27,17 @@ function showShortBio()
     document.getElementById("short_bio_hitler").style.display = "";
 }
 
-function _closeShortBio(shortBioNode)
+function closeShortBio(shortBioNode)
 {
     shortBioNode.style.display = "none";
 }
 
 function closeShortBioMouse()
 {
-    //_closeShortBio(document.getElementById("short_bio_hitler"));
+    //closeShortBio(document.getElementById("short_bio_hitler"));
 }
 
-function closeShortBio(button)
+function closeShortBioButton(button)
 {
-    button.parentNode.parentNode.parentNode.style.display = "none";
+    closeShortBio(button.parentNode.parentNode.parentNode);
 }
