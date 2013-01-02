@@ -21,3 +21,8 @@ function updateTimer(year)
         show_person(childNode, "Roosevelt", year >= 1941);
     }
 }
+
+function closeShortBio(button)
+{
+    button.parentNode.parentNode.parentNode.style.display = "none";
+}

@@ -77,6 +77,10 @@ div.short_bio {
   overflow: auto;
 }
 
+p.short_bio_close {
+  text-align: right;
+}
+
 img.short_bio_right_arrow {
   position:absolute;
   right: -9px;
