@@ -62,16 +62,25 @@ p.name {
   white-space: nowrap;
 }
 
-div.short_bio {
+div.short_bio_overlay {
   position: absolute;
   right: 200px;
   top: 0px;
+}
+
+div.short_bio {
   width: 200px;
   height: 300px;
   padding: 10px 10px;
   background-color: white;
   box-shadow: 0 0 10px 3px #909090;
   overflow: auto;
+}
+
+img.short_bio_right_arrow {
+  position:absolute;
+  right: -9px;
+  top: 10px;
 }
 
 div.short_bio p {
