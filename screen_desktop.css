@@ -20,6 +20,10 @@ input#timeline_range {
     width: 60%;
 }
 
+div#mapnpeople {
+    position: relative;
+}
+
 div#map_container {
   margin-right: 200px;
   height: 300px;
@@ -56,4 +60,20 @@ p.name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+div.short_bio {
+  position: absolute;
+  right: 200px;
+  top: 0px;
+  width: 200px;
+  height: 300px;
+  padding: 10px 10px;
+  background-color: white;
+  box-shadow: 0 0 10px 3px #909090;
+  overflow: auto;
+}
+
+div.short_bio p {
+  margin: 0;
 }
