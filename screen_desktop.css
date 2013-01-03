@@ -39,6 +39,7 @@ div#people {
 
 div.person {
   padding: 5px;
+  cursor: pointer;
 }
 
 div.person:hover {
