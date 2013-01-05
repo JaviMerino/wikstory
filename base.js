@@ -22,10 +22,16 @@ function updateTimer(year)
     }
 }
 
-function showShortBio()
+function getShortBioNode(node)
+{
+    var name = /_[^_]+$/.exec(node.id)[0]
+    return document.getElementById("short_bio" + name);
+}
+
+function showShortBio(node)
 {
     cancelCloseShortBio();
-    document.getElementById("short_bio_hitler").style.display = "";
+    getShortBioNode(node).style.display = "";
 }
 
 function closeShortBio(shortBioNode)
@@ -34,10 +40,9 @@ function closeShortBio(shortBioNode)
 }
 
 var myTimeout;
-function closeShortBioMaybe()
+function closeShortBioMaybe(node)
 {
-    myTimeout = setTimeout(function() {closeShortBio(document.getElementById("short_bio_hitler"))},
-                           100);
+    myTimeout = setTimeout(function() {closeShortBio(getShortBioNode(node))}, 100);
 }
 
 function closeShortBioButton(button)
