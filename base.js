@@ -59,16 +59,8 @@ function initializeShortBio() {
         var personNode = person.getElementsByClassName("person")[0];
         personNode.onmouseover = myShortBio.show;
         personNode.onmouseout = myShortBio.closeMaybe;
+
+        person.getElementsByClassName("short_bio_close_button")[0].onclick = myShortBio.close;
     }
 }
 document.addEventListener("DOMContentLoaded", initializeShortBio);
-
-function closeShortBio(shortBioNode)
-{
-    shortBioNode.style.display = "none";
-}
-
-function closeShortBioButton(button)
-{
-    closeShortBio(button.parentNode.parentNode.parentNode);
-}
