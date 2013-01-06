@@ -22,35 +22,53 @@ function updateTimer(year)
     }
 }
 
-function getShortBioNode(node)
-{
-    var name = /_[^_]+$/.exec(node.id)[0]
-    return document.getElementById("short_bio" + name);
-}
+function initializeShortBio() {
+    function ShortBio(shortBioNode) {
+        var timeout;
+        var self = this;
 
-function showShortBio(node)
-{
-    cancelCloseShortBio();
-    getShortBioNode(node).style.display = "";
+        this.cancelClose = function()
+        {
+            clearTimeout(timeout);
+        }
+
+        this.show = function()
+        {
+            self.cancelClose();
+            shortBioNode.style.display = "";
+        }
+
+        this.close = function()
+        {
+            shortBioNode.style.display = "none";
+        }
+
+        this.closeMaybe = function()
+        {
+            timeout = setTimeout(function() {self.close()}, 100);
+        }
+    }
+
+    var persons = document.getElementsByClassName("person_overlay");
+    for (var i = 0, person; person = persons[i]; i++) {
+        var shortBioNode = person.getElementsByClassName("short_bio_overlay")[0]
+        var myShortBio = new ShortBio(shortBioNode);
+        shortBioNode.onmouseover = myShortBio.cancelClose;
+        shortBioNode.onmouseout = myShortBio.closeMaybe;
+
+        var personNode = person.getElementsByClassName("person")[0];
+        personNode.onmouseover = myShortBio.show;
+        personNode.onmouseout = myShortBio.closeMaybe;
+    }
 }
+document.addEventListener("DOMContentLoaded", initializeShortBio);
 
 function closeShortBio(shortBioNode)
 {
     shortBioNode.style.display = "none";
 }
 
-var myTimeout;
-function closeShortBioMaybe(node)
-{
-    myTimeout = setTimeout(function() {closeShortBio(getShortBioNode(node))}, 100);
-}
-
 function closeShortBioButton(button)
 {
     closeShortBio(button.parentNode.parentNode.parentNode);
-}
-
-function cancelCloseShortBio()
-{
-    clearTimeout(myTimeout);
 }
