@@ -82,6 +82,7 @@ function fillScreen()
 
     var mnp_height = window.innerHeight - title_height - timeline_height - bottom_margin;
     document.getElementById("mapnpeople").style.height = mnp_height + "px";
+    document.getElementById("people").style.height = mnp_height + "px";
 
     var short_bios = document.getElementsByClassName("short_bio");
     var sb_style = window.getComputedStyle(short_bios[0]);

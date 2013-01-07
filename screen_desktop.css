@@ -41,6 +41,7 @@ div#people {
   float: right;
   padding: 0px 10px;
   margin: 0;
+  overflow-y: auto;
 }
 
 div.person {
