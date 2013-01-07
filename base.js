@@ -80,8 +80,16 @@ function fillScreen()
     /* No clue where this come from, but I have a 7px margin at the bottom */
     var bottom_margin = 7;
 
-    var mnp_height = (window.innerHeight - title_height - timeline_height - bottom_margin) + "px";
-    document.getElementById("mapnpeople").style.height = mnp_height;
+    var mnp_height = window.innerHeight - title_height - timeline_height - bottom_margin;
+    document.getElementById("mapnpeople").style.height = mnp_height + "px";
+
+    var short_bios = document.getElementsByClassName("short_bio");
+    var sb_style = window.getComputedStyle(short_bios[0]);
+    var sb_padding = parseInt(sb_style.paddingTop);
+    var sb_box_shadow = parseInt(sb_style.boxShadow.split(" ")[5]);
+    var sb_margins = 2*sb_padding + 2*sb_box_shadow;
+    for (var i = 0, short_bio; short_bio = short_bios[i]; i++)
+        short_bio.style.maxHeight = (mnp_height - sb_margins) + "px";
 }
 window.addEventListener("load", fillScreen);
 window.addEventListener("resize", fillScreen);
