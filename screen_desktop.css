@@ -71,7 +71,7 @@ p.name {
 div.short_bio_overlay {
   position: absolute;
   right: 200px;
-  top: 0px;
+  top: 10px;
 }
 
 div.short_bio {
@@ -89,7 +89,7 @@ p.short_bio_close {
 img.short_bio_right_arrow {
   position:absolute;
   right: -9px;
-  top: 10px;
+  top: 0px;
 }
 
 div.short_bio p {
