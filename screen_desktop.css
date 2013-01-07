@@ -1,9 +1,15 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
   font-family: sans-serif;
 }
 
 div#title {
+  padding-top: 1px;
   text-align: center;
 }
 
@@ -22,11 +28,11 @@ input#timeline_range {
 
 div#mapnpeople {
     position: relative;
+    overflow: hidden;
 }
 
 div#map_container {
   margin-right: 200px;
-  height: 300px;
   overflow: hidden;
 }
 

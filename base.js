@@ -64,3 +64,24 @@ function initializeShortBio() {
     }
 }
 document.addEventListener("DOMContentLoaded", initializeShortBio);
+
+/*
+ * This could be optimized by caching the title and timeline height.
+ * The only thing that changes on resize is the window.innerHeight.
+ */
+function fillScreen()
+{
+    var title_height = document.getElementById("title").clientHeight;
+
+    var timeline_node = document.getElementById("timeline");
+    var timeline_margin_top = parseInt(window.getComputedStyle(timeline_node).marginTop);
+    var timeline_height = timeline_node.clientHeight + 2*timeline_margin_top;
+
+    /* No clue where this come from, but I have a 7px margin at the bottom */
+    var bottom_margin = 7;
+
+    var mnp_height = (window.innerHeight - title_height - timeline_height - bottom_margin) + "px";
+    document.getElementById("mapnpeople").style.height = mnp_height;
+}
+window.addEventListener("load", fillScreen);
+window.addEventListener("resize", fillScreen);
