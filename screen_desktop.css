@@ -44,7 +44,7 @@ div#people {
   overflow-y: auto;
 }
 
-div.person {
+div.person, div#add_person_container {
   padding: 5px;
   cursor: pointer;
 }
@@ -53,13 +53,17 @@ div.person:hover {
   background-color: #c4d8ff;
 }
 
-img.person_avatar {
+div#add_person_container:hover {
+  background-color: #efefef;
+}
+
+img.person_avatar, img#add_person_avatar {
   height: 28px;
   width: 28px;
   float: left;
 }
 
-p.name {
+p.name, p#add_person_text {
   margin: 0;
   padding-left: 10px;
   font-size: 11px;
@@ -67,6 +71,18 @@ p.name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+a#add_person {
+  text-decoration: none;
+}
+
+a#add_person:link, a#add_person:visited {
+  color: black;
+}
+
+a#add_person:hover {
+  text-decoration: underline;
 }
 
 div.short_bio_overlay {
