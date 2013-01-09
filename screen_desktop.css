@@ -103,6 +103,14 @@ p.short_bio_close {
   text-align: right;
 }
 
+a.short_bio_close_button {
+    text-decoration: none;
+}
+
+a.short_bio_close_button:visited, a.edit_short_bio:visited {
+    color: #0000ee;
+}
+
 img.short_bio_right_arrow {
   position:absolute;
   right: -9px;
