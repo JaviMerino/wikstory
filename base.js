@@ -76,7 +76,7 @@ function editShortBio(url_article)
  */
 function fillScreen()
 {
-    var title_height = document.getElementById("title").clientHeight;
+    var title_height = document.getElementsByTagName("header")[0].clientHeight;
 
     var timeline_node = document.getElementById("timeline");
     var timeline_margin_top = parseInt(window.getComputedStyle(timeline_node).marginTop);

@@ -8,7 +8,7 @@ body {
   font-family: sans-serif;
 }
 
-div#title {
+header {
   padding-top: 1px;
   text-align: center;
 }
