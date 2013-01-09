@@ -65,6 +65,11 @@ function initializeShortBio() {
 }
 document.addEventListener("DOMContentLoaded", initializeShortBio);
 
+function editShortBio(url_article)
+{
+    alert("This information was automatically extracted from the Wikipedia article.  Edit " + url_article + " if you think any of this information is inaccurate.");
+}
+
 /*
  * This could be optimized by caching the title and timeline height.
  * The only thing that changes on resize is the window.innerHeight.
