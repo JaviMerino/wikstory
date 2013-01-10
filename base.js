@@ -20,7 +20,8 @@ function updateTimer(year)
         showPerson(childNode, "Roosevelt", year >= 1941);
     }
 
-    map.updateMap(year);
+    if (map)
+        map.updateMarkers(year);
 }
 document.addEventListener("DOMContentLoaded", function(){updateTimer(document.getElementById("selected_year").innerHTML)});
 
@@ -102,23 +103,24 @@ function fillScreen()
 window.addEventListener("load", fillScreen);
 window.addEventListener("resize", fillScreen);
 
-var map = {
-    google_map: undefined,
-    showMap: function() {
-        var latlon = new google.maps.LatLng(51.869, 14.64);
-        var myOptions = {
-            center:latlon,zoom:4,
-            mapTypeId:google.maps.MapTypeId.ROADMAP,
-            mapTypeControl:false,
-            navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
-        };
-        map.google_map = new google.maps.Map(document.getElementById("map_container"), myOptions);
-        map.updateMap(document.getElementById("selected_year").innerHTML);
-    },
-    updateMap: function(year) {
-        var latlon = new google.maps.LatLng(51.869, 14.64);
-        var marker = new google.maps.Marker({position:latlon, map:this.google_map, title:"Germany invades Poland"});
-    }
-};
+var map;
 
-window.addEventListener("load", map.showMap);
+function initializeMap() {
+    var latlon = new google.maps.LatLng(51.869, 14.64);
+    var myOptions = {
+        center: latlon,
+        zoom: 4,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false,
+        navigationControlOptions: {style:google.maps.NavigationControlStyle.SMALL}
+    };
+
+    map = new google.maps.Map(document.getElementById("map_container"), myOptions);
+    map.updateMarkers = function(year) {
+        var latlon = new google.maps.LatLng(51.869, 14.64);
+        var marker = new google.maps.Marker({position:latlon, map:this, title:"Germany invades Poland"});
+    }
+
+    map.updateMarkers(document.getElementById("selected_year").innerHTML);
+}
+window.addEventListener("load", initializeMap);
