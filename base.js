@@ -86,7 +86,7 @@ function fillScreen()
     var bottom_margin = 2;
 
     var mnp_height = window.innerHeight - title_height - timeline_height - bottom_margin;
-    document.getElementById("mapnpeople").style.height = mnp_height + "px";
+    document.getElementById("map_container").style.height = mnp_height + "px";
     document.getElementById("people").style.height = mnp_height + "px";
 
     var short_bios = document.getElementsByClassName("short_bio");
@@ -99,3 +99,18 @@ function fillScreen()
 }
 window.addEventListener("load", fillScreen);
 window.addEventListener("resize", fillScreen);
+
+function showMap()
+{
+    var latlon = new google.maps.LatLng(0, 0);
+    var myOptions = {
+        center:latlon,zoom:14,
+        mapTypeId:google.maps.MapTypeId.ROADMAP,
+        mapTypeControl:false,
+        navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+    };
+    var map = new google.maps.Map(document.getElementById("map_container"), myOptions);
+
+    var marker=new google.maps.Marker({position:latlon, map:map, title:"You are here!"});
+}
+window.addEventListener("load", showMap);
