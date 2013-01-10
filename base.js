@@ -19,6 +19,8 @@ function updateTimer(year)
         showPerson(childNode, "Stalin", year >= 1941);
         showPerson(childNode, "Roosevelt", year >= 1941);
     }
+
+    map.updateMap(year);
 }
 document.addEventListener("DOMContentLoaded", function(){updateTimer(document.getElementById("selected_year").innerHTML)});
 
@@ -100,17 +102,23 @@ function fillScreen()
 window.addEventListener("load", fillScreen);
 window.addEventListener("resize", fillScreen);
 
-function showMap()
-{
-    var latlon = new google.maps.LatLng(0, 0);
-    var myOptions = {
-        center:latlon,zoom:14,
-        mapTypeId:google.maps.MapTypeId.ROADMAP,
-        mapTypeControl:false,
-        navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
-    };
-    var map = new google.maps.Map(document.getElementById("map_container"), myOptions);
+var map = {
+    google_map: undefined,
+    showMap: function() {
+        var latlon = new google.maps.LatLng(51.869, 14.64);
+        var myOptions = {
+            center:latlon,zoom:4,
+            mapTypeId:google.maps.MapTypeId.ROADMAP,
+            mapTypeControl:false,
+            navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+        };
+        map.google_map = new google.maps.Map(document.getElementById("map_container"), myOptions);
+        map.updateMap(document.getElementById("selected_year").innerHTML);
+    },
+    updateMap: function(year) {
+        var latlon = new google.maps.LatLng(51.869, 14.64);
+        var marker = new google.maps.Marker({position:latlon, map:this.google_map, title:"Germany invades Poland"});
+    }
+};
 
-    var marker=new google.maps.Marker({position:latlon, map:map, title:"You are here!"});
-}
-window.addEventListener("load", showMap);
+window.addEventListener("load", map.showMap);
