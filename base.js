@@ -21,6 +21,7 @@ function updateTimer(year)
         showPerson(childNode, "Roosevelt", year >= 1941);
     }
 }
+document.addEventListener("DOMContentLoaded", function(){updateTimer(document.getElementById("selected_year").innerHTML)});
 
 function initializeShortBio() {
     function ShortBio(shortBioNode) {
