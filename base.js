@@ -83,8 +83,8 @@ function fillScreen()
     var timeline_margin_top = parseInt(window.getComputedStyle(timeline_node).marginTop);
     var timeline_height = timeline_node.clientHeight + 2*timeline_margin_top;
 
-    /* No clue where this come from, but I have a 7px margin at the bottom */
-    var bottom_margin = 7;
+    /* No clue where this come from, but I'm missing 2px somewhere */
+    var bottom_margin = 2;
 
     var mnp_height = window.innerHeight - title_height - timeline_height - bottom_margin;
     document.getElementById("mapnpeople").style.height = mnp_height + "px";
