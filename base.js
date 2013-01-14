@@ -118,7 +118,15 @@ function initializeMap() {
     map = new google.maps.Map(document.getElementById("map_container"), myOptions);
     map.updateMarkers = function(year) {
         var latlon = new google.maps.LatLng(51.869, 14.64);
-        var marker = new google.maps.Marker({position:latlon, map:this, title:"Germany invades Poland"});
+        var infowindow = new google.maps.InfoWindow({
+            content: "Germany invades Poland",
+            size: new google.maps.Size(50, 50)
+        });
+        var marker = new google.maps.Marker({position: latlon, map: this});
+
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker)
+        });
     }
 
     map.updateMarkers(document.getElementById("selected_year").innerHTML);
