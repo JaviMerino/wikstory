@@ -112,7 +112,8 @@ function initializeMap() {
         zoom: 4,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControl: false,
-        navigationControlOptions: {style:google.maps.NavigationControlStyle.SMALL}
+        scaleControl: true,
+        streetViewControl: false,
     };
 
     map = new google.maps.Map(document.getElementById("map_container"), myOptions);
