@@ -131,4 +131,4 @@ function initializeMap() {
 
     map.updateMarkers(document.getElementById("selected_year").innerHTML);
 }
-window.addEventListener("load", initializeMap);
+google.maps.event.addDomListener(window, "load", initializeMap);
