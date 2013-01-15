@@ -110,7 +110,7 @@ function initializeMap() {
     var myOptions = {
         center: latlon,
         zoom: 4,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeId: google.maps.MapTypeId.TERRAIN,
         mapTypeControl: false,
         scaleControl: true,
         streetViewControl: false,
