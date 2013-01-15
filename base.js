@@ -118,6 +118,17 @@ function initializeMap() {
 
     map = new google.maps.Map(document.getElementById("map_container"), myOptions);
     map.shown_markers = [];
+    map.markers = {
+        1939: [
+            { lat: 51.869, lon: 14.64, text: "Germany invades Poland" },
+        ],
+        1940: [],
+        1941: [],
+        1942: [],
+        1943: [],
+        1944: [],
+        1945: [],
+    };
 
     map.addMarker = function(lat, lon, text) {
         var latlon = new google.maps.LatLng(lat, lon);
@@ -143,8 +154,8 @@ function initializeMap() {
     map.updateMarkers = function(year) {
         this.removeMarkers();
 
-        if (year === "1939")
-            this.addMarker(51.869, 14.64, "Germany invades Poland");
+        for (var i = 0, m; m = this.markers[year][i]; i++)
+            this.addMarker(m.lat, m.lon, m.text);
     }
 
     map.updateMarkers(document.getElementById("selected_year").innerHTML);
