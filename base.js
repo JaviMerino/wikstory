@@ -122,12 +122,35 @@ function initializeMap() {
         1939: [
             { lat: 51.869, lon: 14.64, text: "Germany invades Poland" },
         ],
-        1940: [],
-        1941: [],
-        1942: [],
-        1943: [],
-        1944: [],
-        1945: [],
+        1940: [
+            {lat: 49.74, lon: 4.81, text: "Germany invades France"},
+            {lat: 51.86, lon: -0.87, text: "Battle of Britain"},
+        ],
+        1941: [
+            {lat: 55.61, lon: 26.5, text: "Germany attacks the Soviet Union"},
+            {lat: 21.33, lon: -157.98, text: "Japanese attack on Pearl Harbor"},
+        ],
+        1942: [
+            {lat: 40.3, lon: -73.4, text: "Second Happy Time"},
+            {lat: 28.2, lon: -177.35, text: "Battle of Midway"},
+            {lat: 48.67, lon: 44.3, text: "Battle of Stalingrad"},
+            {lat: 30.837, lon: 28.98, text: "Battles of El Alamein"},
+        ],
+        1943: [
+            {lat: 7.12, lon: 171.1, text: "Gilbert and Marshall Islands Campaign"},
+            {lat: 37.65, lon: 14.05, text: "Allied invasion of Italy"},
+            {lat: 52.97, lon: 36.07, text: "Operation Kutuzov"},
+        ],
+        1944: [
+            {lat: 49.37, lon: 0.88, text: "Normandy Landings"},
+            {lat: 53.89, lon: 28.24, text: "Operation Bagration"},
+            {lat: 20, lon: 130, text: "Battle of the Philippines"},
+        ],
+        1945: [
+            {lat: 52.52, lon: 13.37, text: "Germany surrenders"},
+            {lat: 24.78, lon: 141.32, text: "Battle of Iwo Jima"},
+            {lat: 36, lon: 139.6, text: "Japan surrenders"},
+        ],
     };
 
     map.addMarker = function(lat, lon, text) {
