@@ -117,21 +117,34 @@ function initializeMap() {
     };
 
     map = new google.maps.Map(document.getElementById("map_container"), myOptions);
-    map.updateMarkers = function(year) {
-        if (year === "1939") {
-            var latlon = new google.maps.LatLng(51.869, 14.64);
-            var infowindow = new google.maps.InfoWindow({
-                content: "Germany invades Poland",
-                size: new google.maps.Size(50, 50)
-            });
-            this.marker = new google.maps.Marker({position: latlon, map: this});
+    map.shown_markers = [];
 
-            google.maps.event.addListener(this.marker, 'click', function() {
-                infowindow.open(map, map.marker)
-            });
-        } else {
-            this.marker.setMap(null);
-        }
+    map.addMarker = function(lat, lon, text) {
+        var latlon = new google.maps.LatLng(lat, lon);
+        var infowindow = new google.maps.InfoWindow({
+            content: text,
+            size: new google.maps.Size(50, 50)
+        });
+
+        var marker = new google.maps.Marker({position: latlon, map: this});
+
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker)
+        });
+        this.shown_markers.push(marker);
+    }
+
+    map.removeMarkers = function() {
+        for (var i = 0, m; m = this.shown_markers[i]; i++)
+            m.setMap(null);
+        this.shown_markers.length = 0;
+    }
+
+    map.updateMarkers = function(year) {
+        this.removeMarkers();
+
+        if (year === "1939")
+            this.addMarker(51.869, 14.64, "Germany invades Poland");
     }
 
     map.updateMarkers(document.getElementById("selected_year").innerHTML);
