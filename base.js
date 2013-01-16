@@ -153,17 +153,15 @@ function initializeMap() {
         ],
     };
 
+    map.infowindow = new google.maps.InfoWindow({size: new google.maps.Size(50, 50)});
+
     map.addMarker = function(lat, lon, text) {
         var latlon = new google.maps.LatLng(lat, lon);
-        var infowindow = new google.maps.InfoWindow({
-            content: text,
-            size: new google.maps.Size(50, 50)
-        });
-
         var marker = new google.maps.Marker({position: latlon, map: this});
 
         google.maps.event.addListener(marker, 'click', function() {
-            infowindow.open(map, marker)
+            map.infowindow.setContent(text);
+            map.infowindow.open(map, marker);
         });
         this.shown_markers.push(marker);
     }
