@@ -89,6 +89,7 @@ div.short_bio_overlay {
   position: absolute;
   right: 200px;
   top: 10px;
+  z-index: 1;
 }
 
 div.short_bio {
