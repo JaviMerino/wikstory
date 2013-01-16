@@ -21,7 +21,7 @@ function updateTimer(year)
     }
 
     if (map)
-        map.updateMarkers(year);
+        map.update(year);
 }
 document.addEventListener("DOMContentLoaded", function(){updateTimer(document.getElementById("selected_year").innerHTML)});
 
@@ -117,7 +117,10 @@ function initializeMap() {
     };
 
     map = new google.maps.Map(document.getElementById("map_container"), myOptions);
+
     map.shown_markers = [];
+    map.shown_areas = [];
+
     map.markers = {
         1939: [
             { lat: 51.869, lon: 14.64, text: "Germany invades Poland" },
@@ -153,6 +156,119 @@ function initializeMap() {
         ],
     };
 
+    map.occupation_areas = {
+        1939: [
+            /* UK */
+            {
+                path: [
+                    new google.maps.LatLng(58.86, -4.12),
+                    new google.maps.LatLng(50.13, -5.61),
+                    new google.maps.LatLng(51.19, 1.4),
+                ],
+                color: "#FF0000",
+            },
+            /* France */
+            {
+                path: [
+                    new google.maps.LatLng(50.98, 1.99),
+                    new google.maps.LatLng(48.35, -4.86),
+                    new google.maps.LatLng(43.31, -1.65),
+                    new google.maps.LatLng(42.52, 3.07),
+                    new google.maps.LatLng(44.82, 6.96),
+                    new google.maps.LatLng(47.62, 7.62),
+                    new google.maps.LatLng(48.96, 8.12),
+                ],
+                color: "#FF0000",
+            },
+            /* Poland */
+            {
+                path: [
+                    new google.maps.LatLng(53.83, 14.23),
+                    new google.maps.LatLng(51.869, 14.64),
+                    new google.maps.LatLng(51.00, 15.07),
+                    new google.maps.LatLng(49.04, 22.58),
+                    new google.maps.LatLng(47.99, 29.15),
+                    new google.maps.LatLng(52.11, 31.77),
+                    new google.maps.LatLng(56.10, 28.34),
+                    new google.maps.LatLng(53.92, 23.53),
+                ],
+                color: "#FF0000",
+            },
+            /* Axis */
+            {
+                path: [
+                    new google.maps.LatLng(54.8, 9.35),
+                    new google.maps.LatLng(52.37, 7.02),
+                    new google.maps.LatLng(48.96, 8.12),
+                    new google.maps.LatLng(47.62, 7.62),
+                    new google.maps.LatLng(46.78, 10.41),
+                    new google.maps.LatLng(44.82, 6.96),
+                    new google.maps.LatLng(43.98, 10.14),
+                    new google.maps.LatLng(40.14, 16.74),
+                    new google.maps.LatLng(46.32, 13.64),
+                    new google.maps.LatLng(48.76, 22.36),
+                    new google.maps.LatLng(51.00, 15.07),
+                    new google.maps.LatLng(51.869, 14.64),
+                    new google.maps.LatLng(53.83, 14.23),
+                ],
+                color: "#0000FF",
+            },
+            /* USSR */
+            {
+                path: [
+                    new google.maps.LatLng(69.79, 30.89),
+                    new google.maps.LatLng(56.10, 28.34),
+                    new google.maps.LatLng(52.11, 31.77),
+                    new google.maps.LatLng(47.99, 29.15),
+                    new google.maps.LatLng(41.9, 41.72),
+                    new google.maps.LatLng(67.97, 50.0),
+                ],
+                color: "#00BB00",
+            },
+        ],
+        1940: [
+            /* UK */
+            {
+                path: [
+                    new google.maps.LatLng(58.86, -4.12),
+                    new google.maps.LatLng(50.13, -5.61),
+                    new google.maps.LatLng(51.19, 1.4),
+                ],
+                color: "#FF0000",
+            },
+            /* Axis */
+            {
+                path: [
+                    new google.maps.LatLng(54.8, 9.35),
+                    new google.maps.LatLng(50.98, 1.99),
+                    new google.maps.LatLng(48.35, -4.86),
+                    new google.maps.LatLng(43.31, -1.65),
+                    new google.maps.LatLng(42.52, 3.07),
+                    new google.maps.LatLng(44.82, 6.96),
+                    new google.maps.LatLng(43.98, 10.14),
+                    new google.maps.LatLng(40.14, 16.74),
+                    new google.maps.LatLng(46.32, 13.64),
+                    new google.maps.LatLng(47.99, 29.15),
+                    new google.maps.LatLng(49.04, 22.58),
+                    new google.maps.LatLng(53.92, 23.53),
+                ],
+                color: "#0000FF",
+            },
+            /* USSR */
+            {
+                path: [
+                    new google.maps.LatLng(69.79, 30.89),
+                    new google.maps.LatLng(56.10, 28.34),
+                    new google.maps.LatLng(53.92, 23.53),
+                    new google.maps.LatLng(49.04, 22.58),
+                    new google.maps.LatLng(47.99, 29.15),
+                    new google.maps.LatLng(41.9, 41.72),
+                    new google.maps.LatLng(67.97, 50.0),
+                ],
+                color: "#00BB00",
+            },
+        ],
+    };
     map.infowindow = new google.maps.InfoWindow({size: new google.maps.Size(50, 50)});
 
     map.addMarker = function(lat, lon, text) {
@@ -179,6 +295,36 @@ function initializeMap() {
             this.addMarker(m.lat, m.lon, m.text);
     }
 
-    map.updateMarkers(document.getElementById("selected_year").innerHTML);
+    map.removeOccupationAreas = function() {
+        for (var i = 0, a; a = this.shown_areas[i]; i++)
+            a.setMap(null);
+        this.shown_areas.length = 0;
+    }
+
+    map.addOccupationArea = function(area) {
+        area_poly = new google.maps.Polygon({
+            paths: area.path,
+            strokeColor: area.color,
+            strokeOpacity: 0.8,
+            fillColor: area.color,
+            fillOpacity: 0.3,
+        });
+
+        this.shown_areas.push(area_poly);
+        area_poly.setMap(this);
+    }
+
+    map.updateOccupationAreas = function(year) {
+        this.removeOccupationAreas();
+        for (var i = 0, a; a = this.occupation_areas[year][i]; i++)
+            this.addOccupationArea(a);
+    }
+
+    map.update = function(year) {
+        map.updateMarkers(year);
+        map.updateOccupationAreas(year);
+    }
+
+    map.update(document.getElementById("selected_year").innerHTML);
 }
 google.maps.event.addDomListener(window, "load", initializeMap);
