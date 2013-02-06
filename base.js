@@ -234,6 +234,9 @@ function initializeMap() {
             {
                 path: [
                     new google.maps.LatLng(58.86, -4.12),
+                    new google.maps.LatLng(54.13, -5.61),
+                    new google.maps.LatLng(53.80, -3.61),
+                    new google.maps.LatLng(52.13, -4.61),
                     new google.maps.LatLng(50.13, -5.61),
                     new google.maps.LatLng(51.19, 1.4),
                 ],
