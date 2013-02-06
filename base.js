@@ -277,12 +277,12 @@ function initializeMap() {
     };
     map.infowindow = new google.maps.InfoWindow({size: new google.maps.Size(50, 50)});
 
-    map.addMarker = function(lat, lon, text) {
-        var latlon = new google.maps.LatLng(lat, lon);
+    map.addMarker = function(m) {
+        var latlon = new google.maps.LatLng(m.lat, m.lon);
         var marker = new google.maps.Marker({position: latlon, map: this});
 
         google.maps.event.addListener(marker, 'click', function() {
-            map.infowindow.setContent(text);
+            map.infowindow.setContent(m.text);
             map.infowindow.open(map, marker);
         });
         this.shown_markers.push(marker);
@@ -298,7 +298,7 @@ function initializeMap() {
         this.removeMarkers();
 
         for (var i = 0, m; m = this.markers[year][i]; i++)
-            this.addMarker(m.lat, m.lon, m.text);
+            this.addMarker(m);
     }
 
     map.removeOccupationAreas = function() {
