@@ -277,6 +277,18 @@ function initializeMap() {
     };
     map.infowindow = new google.maps.InfoWindow({size: new google.maps.Size(50, 50)});
 
+    map.drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: google.maps.drawing.OverlayType.POLYGON,
+        drawingControl: true,
+        drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: [
+                google.maps.drawing.OverlayType.MARKER,
+                google.maps.drawing.OverlayType.POLYGON,
+            ]
+        },
+    });
+
     map.addMarker = function(m) {
         var latlon = new google.maps.LatLng(m.lat, m.lon);
         var marker = new google.maps.Marker({position: latlon, map: this});
@@ -332,5 +344,17 @@ function initializeMap() {
     }
 
     map.update(document.getElementById("selected_year").innerHTML);
+
+    map.showDrawingTools = function() {
+        this.drawingManager.setMap(this);
+        for (var i = 0, a; a = this.shown_areas[i]; i++)
+            a.setEditable(true);
+    }
+    map.showDrawingTools();
+
+    map.overlayComplete = function(ev) {
+        ev.overlay.setEditable(true);
+    }
+    google.maps.event.addListener(map.drawingManager, 'overlaycomplete', map.overlayComplete);
 }
 google.maps.event.addDomListener(window, "load", initializeMap);
