@@ -36,6 +36,17 @@ div#map_container {
   overflow: hidden;
 }
 
+div.edit_UI {
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(113, 123, 135);
+  line-height: 0;
+  padding: 4px;
+  cursor: "pointer";
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px;
+}
+
 div#people {
   width: 180px;
   float: right;

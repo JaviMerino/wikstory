@@ -355,14 +355,7 @@ function initializeMap() {
     editToolBar.prototype.addIcon = function(img_src, alt, edit_fn)
     {
         var edit_UI = document.createElement("div");
-        edit_UI.style.backgroundColor = "white";
-        edit_UI.style.borderStyle = "solid";
-        edit_UI.style.borderWidth = "1px";
-        edit_UI.style.borderColor = "rgb(113, 123, 135)";
-        edit_UI.style.lineHeight = "0";
-        edit_UI.style.padding = "4px";
-        edit_UI.style.cursor = "pointer";
-        edit_UI.style.boxShadow = "rgba(0, 0, 0, 0.4) 0px 2px 4px";
+        edit_UI.className = "edit_UI";
         edit_UI.title = "Edit";
         this.div.appendChild(edit_UI);
 
