@@ -410,6 +410,7 @@ function initializeMap() {
     }
 
     map.overlayComplete = function(ev) {
+        map.drawingManager.setDrawingMode(null);
     }
     google.maps.event.addListener(map.drawingManager, 'overlaycomplete', map.overlayComplete);
 
