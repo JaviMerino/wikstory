@@ -277,11 +277,36 @@ function initializeMap() {
     };
     map.infowindow = new google.maps.InfoWindow({size: new google.maps.Size(50, 50)});
 
+    var editDiv = document.createElement("div");
+    editDiv.style.margin = "5px";
+
+    var editUI = document.createElement("div");
+    editUI.style.backgroundColor = "white";
+    editUI.style.borderStyle = "solid";
+    editUI.style.borderWidth = "1px";
+    editUI.style.borderColor = "rgb(113, 123, 135)";
+    editUI.style.lineHeight = "0";
+    editUI.style.padding = "4px";
+    editUI.style.cursor = "pointer";
+    editUI.style.boxShadow = "rgba(0, 0, 0, 0.4) 0px 2px 4px";
+    editUI.title = "Edit";
+    editDiv.appendChild(editUI);
+
+    var editImg = document.createElement("img");
+    editImg.src = "img/edit.png";
+    editImg.alt = "Edit";
+    editImg.height = 16;
+    editImg.width = 16;
+    editImg.draggable = false;
+    editUI.appendChild(editImg);
+
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(editDiv);
+
     map.drawingManager = new google.maps.drawing.DrawingManager({
         drawingMode: google.maps.drawing.OverlayType.POLYGON,
         drawingControl: true,
         drawingControlOptions: {
-            position: google.maps.ControlPosition.TOP_CENTER,
+            position: google.maps.ControlPosition.TOP_RIGHT,
             drawingModes: [
                 google.maps.drawing.OverlayType.MARKER,
                 google.maps.drawing.OverlayType.POLYGON,
@@ -343,18 +368,22 @@ function initializeMap() {
         map.updateOccupationAreas(year);
     }
 
-    map.update(document.getElementById("selected_year").innerHTML);
-
     map.showDrawingTools = function() {
         this.drawingManager.setMap(this);
         for (var i = 0, a; a = this.shown_areas[i]; i++)
             a.setEditable(true);
     }
-    map.showDrawingTools();
+
+    function editClick() {
+        map.showDrawingTools();
+    }
+    google.maps.event.addDomListener(editUI, 'click', editClick);
 
     map.overlayComplete = function(ev) {
         ev.overlay.setEditable(true);
     }
     google.maps.event.addListener(map.drawingManager, 'overlaycomplete', map.overlayComplete);
+
+    map.update(document.getElementById("selected_year").innerHTML);
 }
 google.maps.event.addDomListener(window, "load", initializeMap);
