@@ -344,6 +344,28 @@ function initializeMap() {
             this.addOccupationArea(a);
     }
 
+    map.saveShownAreas = function() {
+        var coords = "[";
+
+        for (var i = 0, a; a = this.shown_areas[i]; i++) {
+            var array_area_coords = a.getPaths().getArray()[0].getArray();
+
+            var area_coords = "[";
+            for (var j = 0, this_point; this_point = array_area_coords[j]; j++) {
+                var this_point_str = "[" + this_point.lat() + ", " + this_point.lng() + "]";
+                area_coords += this_point_str + ", ";
+            }
+            area_coords = area_coords.slice(0, area_coords.length - 2);
+            area_coords += "]";
+
+            coords += area_coords + ", ";
+        }
+        coords = coords.slice(0, coords.length - 2);
+        coords += "]";
+
+        alert("Would send to the server: " + coords);
+    }
+
     map.update = function(year) {
         map.updateMarkers(year);
         map.updateOccupationAreas(year);
@@ -401,6 +423,7 @@ function initializeMap() {
             edit_button.hide();
             edit_tools.show();
         } else {
+            map.saveShownAreas();
             this.drawingManager.setMap(null);
             for (var i = 0, a; a = this.shown_areas[i]; i++)
                 a.setEditable(false);
@@ -410,6 +433,7 @@ function initializeMap() {
     }
 
     map.overlayComplete = function(ev) {
+        map.shown_areas.push(ev.overlay);
         map.drawingManager.setDrawingMode(null);
     }
     google.maps.event.addListener(map.drawingManager, 'overlaycomplete', map.overlayComplete);
