@@ -282,7 +282,6 @@ function initializeMap() {
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(edit_div);
 
     map.drawingManager = new google.maps.drawing.DrawingManager({
-        drawingMode: google.maps.drawing.OverlayType.POLYGON,
         drawingControl: true,
         drawingControlOptions: {
             position: google.maps.ControlPosition.TOP_RIGHT,
