@@ -288,7 +288,10 @@ function initializeMap() {
             drawingModes: [
                 google.maps.drawing.OverlayType.MARKER,
                 google.maps.drawing.OverlayType.POLYGON,
-            ]
+            ],
+        },
+        polygonOptions: {
+            editable: true,
         },
     });
 
@@ -407,7 +410,6 @@ function initializeMap() {
     }
 
     map.overlayComplete = function(ev) {
-        ev.overlay.setEditable(true);
     }
     google.maps.event.addListener(map.drawingManager, 'overlaycomplete', map.overlayComplete);
 
