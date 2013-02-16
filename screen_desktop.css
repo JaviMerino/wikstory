@@ -47,6 +47,12 @@ div.edit_UI {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px;
 }
 
+div.edit_UI:hover {
+  background-image: -webkit-linear-gradient(top, rgb(255,255, 255), rgb(230, 230, 230));
+  background-image: -moz-linear-gradient(top, rgb(255,255, 255), rgb(230, 230, 230));
+  background-image: linear-gradient(top, rgb(255,255, 255), rgb(230, 230, 230));
+}
+
 div#people {
   width: 180px;
   float: right;
