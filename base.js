@@ -277,30 +277,9 @@ function initializeMap() {
     };
     map.infowindow = new google.maps.InfoWindow({size: new google.maps.Size(50, 50)});
 
-    var editDiv = document.createElement("div");
-    editDiv.style.margin = "5px";
-
-    var editUI = document.createElement("div");
-    editUI.style.backgroundColor = "white";
-    editUI.style.borderStyle = "solid";
-    editUI.style.borderWidth = "1px";
-    editUI.style.borderColor = "rgb(113, 123, 135)";
-    editUI.style.lineHeight = "0";
-    editUI.style.padding = "4px";
-    editUI.style.cursor = "pointer";
-    editUI.style.boxShadow = "rgba(0, 0, 0, 0.4) 0px 2px 4px";
-    editUI.title = "Edit";
-    editDiv.appendChild(editUI);
-
-    var editImg = document.createElement("img");
-    editImg.src = "img/edit.png";
-    editImg.alt = "Edit";
-    editImg.height = 16;
-    editImg.width = 16;
-    editImg.draggable = false;
-    editUI.appendChild(editImg);
-
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(editDiv);
+    var edit_div = document.createElement("div");
+    edit_div.style.margin = "5px";
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(edit_div);
 
     map.drawingManager = new google.maps.drawing.DrawingManager({
         drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -368,16 +347,72 @@ function initializeMap() {
         map.updateOccupationAreas(year);
     }
 
-    map.showDrawingTools = function() {
-        this.drawingManager.setMap(this);
-        for (var i = 0, a; a = this.shown_areas[i]; i++)
-            a.setEditable(true);
+    function editToolBar()
+    {
+        this.div = document.createElement("div");
     }
 
-    function editClick() {
-        map.showDrawingTools();
+    editToolBar.prototype.addIcon = function(img_src, alt, edit_fn)
+    {
+        var edit_UI = document.createElement("div");
+        edit_UI.style.backgroundColor = "white";
+        edit_UI.style.borderStyle = "solid";
+        edit_UI.style.borderWidth = "1px";
+        edit_UI.style.borderColor = "rgb(113, 123, 135)";
+        edit_UI.style.lineHeight = "0";
+        edit_UI.style.padding = "4px";
+        edit_UI.style.cursor = "pointer";
+        edit_UI.style.boxShadow = "rgba(0, 0, 0, 0.4) 0px 2px 4px";
+        edit_UI.title = "Edit";
+        this.div.appendChild(edit_UI);
+
+        var edit_img = document.createElement("img");
+        edit_img.src = img_src;
+        edit_img.alt = alt;
+        edit_img.height = 16;
+        edit_img.width = 16;
+        edit_img.draggable = false;
+        edit_UI.appendChild(edit_img);
+
+        google.maps.event.addDomListener(edit_UI, "click", edit_fn);
     }
-    google.maps.event.addDomListener(editUI, 'click', editClick);
+
+    editToolBar.prototype.show = function()
+    {
+        this.div.style.display = "";
+    }
+
+    editToolBar.prototype.hide = function()
+    {
+        this.div.style.display = "none";
+    }
+
+    var edit_button = new editToolBar();
+    edit_button.addIcon("img/edit.png", "Edit", function() {map.setEditable(true)});
+    edit_button.show();
+    edit_div.appendChild(edit_button.div);
+
+    var edit_tools = new editToolBar();
+    edit_tools.addIcon("img/done.png", "Done", function() {map.setEditable(false)});
+    edit_tools.hide();
+    edit_div.appendChild(edit_tools.div);
+
+    map.setEditable = function(editable)
+    {
+        if (editable) {
+            this.drawingManager.setMap(this);
+            for (var i = 0, a; a = this.shown_areas[i]; i++)
+                a.setEditable(true);
+            edit_button.hide();
+            edit_tools.show();
+        } else {
+            this.drawingManager.setMap(null);
+            for (var i = 0, a; a = this.shown_areas[i]; i++)
+                a.setEditable(false);
+            edit_tools.hide();
+            edit_button.show();
+        }
+    }
 
     map.overlayComplete = function(ev) {
         ev.overlay.setEditable(true);
