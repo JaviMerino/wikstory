@@ -114,6 +114,20 @@ function initializeMap() {
         mapTypeControl: false,
         scaleControl: true,
         streetViewControl: false,
+        styles: [
+            {
+                featureType: "administrative",
+                stylers: [{
+                    visibility: "off",
+                }],
+            },
+            {
+                featureType: "road",
+                stylers: [{
+                    visibility: "off",
+                }],
+            },
+        ],
     };
 
     map = new google.maps.Map(document.getElementById("map_container"), myOptions);
