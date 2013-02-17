@@ -146,8 +146,9 @@ function createTimeline()
     selected_year_div.className = "selected_year";
     timeline_div.appendChild(selected_year_div);
 
-    var min_year = "1939"; // XXX Use the markers
-    var max_year = "1945";
+    var years = Object.keys(markers);
+    var min_year = years[0];
+    var max_year = years[years.length - 1];
     var timeline_slider = document.createElement("div");
     timeline_slider.id = "timeline_slider";
     timeline_slider.insertAdjacentHTML("afterbegin", min_year);
