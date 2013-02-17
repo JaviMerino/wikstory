@@ -23,7 +23,7 @@ div.selected_year {
 }
 
 input#timeline_range {
-    width: 60%;
+    width: 250px;
 }
 
 div#mapnpeople {
