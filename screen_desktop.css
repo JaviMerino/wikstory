@@ -47,9 +47,9 @@ div.edit_UI {
 }
 
 div.edit_UI:hover {
+  background-image: linear-gradient(to top, rgb(255,255, 255), rgb(230, 230, 230));
   background-image: -webkit-linear-gradient(top, rgb(255,255, 255), rgb(230, 230, 230));
-  background-image: -moz-linear-gradient(top, rgb(255,255, 255), rgb(230, 230, 230));
-  background-image: linear-gradient(top, rgb(255,255, 255), rgb(230, 230, 230));
+  background-image: -moz-linear-gradient(center top, rgb(255,255, 255), rgb(230, 230, 230));
 }
 
 div#people {
