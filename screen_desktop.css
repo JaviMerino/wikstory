@@ -19,7 +19,7 @@ div#timeline {
 }
 
 div.selected_year {
-  font-size: 32px;
+  font-size: 24px;
 }
 
 input#timeline_range {
