@@ -144,12 +144,11 @@ function createTimeline()
 
     var selected_year_div = document.createElement("div");
     selected_year_div.className = "selected_year";
-    selected_year_div.innerHTML = "1939"; // XXX Use the markers
     timeline_div.appendChild(selected_year_div);
 
     var timeline_slider = document.createElement("div");
     timeline_slider.id = "timeline_slider";
-    timeline_slider.innerHTML = '1939 <input type="range" min="1939" max="1945" value="1939" id="timeline_range" onchange="updateTimer(this.value)"> 1945';
+    timeline_slider.innerHTML = '1939 <input type="range" min="1939" max="1945" value="1939" id="timeline_range" onchange="updateTimer(this.value)"> 1945'; // XXX Use the markers
     timeline_div.appendChild(timeline_slider);
 
     return timeline_container_div;
