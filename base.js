@@ -146,9 +146,20 @@ function createTimeline()
     selected_year_div.className = "selected_year";
     timeline_div.appendChild(selected_year_div);
 
+    var min_year = "1939"; // XXX Use the markers
+    var max_year = "1945";
     var timeline_slider = document.createElement("div");
     timeline_slider.id = "timeline_slider";
-    timeline_slider.innerHTML = '1939 <input type="range" min="1939" max="1945" value="1939" id="timeline_range" onchange="updateTimer(this.value)"> 1945'; // XXX Use the markers
+    timeline_slider.insertAdjacentHTML("afterbegin", min_year);
+    var slider = document.createElement("input");
+    slider.type = "range";
+    slider.min = min_year;
+    slider.max = max_year;
+    slider.value = min_year;
+    slider.id = "timeline_range";
+    slider.addEventListener("change", function() {updateTimer(this.value)});
+    timeline_slider.appendChild(slider);
+    timeline_slider.insertAdjacentHTML("beforeend", max_year);
     timeline_div.appendChild(timeline_slider);
 
     return timeline_container_div;
