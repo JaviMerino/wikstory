@@ -310,7 +310,7 @@ function initializeMap() {
     map.infowindow = new google.maps.InfoWindow({size: new google.maps.Size(50, 50)});
 
     map.timeline_container_div = createTimeline();
-    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(map.timeline_container_div);
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(map.timeline_container_div);
 
     var edit_div = document.createElement("div");
     edit_div.style.margin = "5px";
