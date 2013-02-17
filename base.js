@@ -81,14 +81,10 @@ function fillScreen()
 {
     var title_height = document.getElementsByTagName("header")[0].clientHeight;
 
-    var timeline_node = document.getElementById("timeline");
-    var timeline_margin_top = parseInt(window.getComputedStyle(timeline_node).marginTop);
-    var timeline_height = timeline_node.clientHeight + 2*timeline_margin_top;
+    /* No clue why, but there's 22px below the header */
+    var header_bottom_margin = 22;
 
-    /* No clue where this come from, but I'm missing 2px somewhere */
-    var bottom_margin = 2;
-
-    var mnp_height = window.innerHeight - title_height - timeline_height - bottom_margin;
+    var mnp_height = window.innerHeight - title_height - header_bottom_margin;
     document.getElementById("map_container").style.height = mnp_height + "px";
     document.getElementById("people").style.height = mnp_height + "px";
 
@@ -102,6 +98,28 @@ function fillScreen()
 }
 window.addEventListener("load", fillScreen);
 window.addEventListener("resize", fillScreen);
+
+function createTimeline()
+{
+    var timeline_container_div = document.createElement("div");
+    timeline_container_div.style.margin = "5px";
+
+    var timeline_div = document.createElement("div");
+    timeline_div.id = "timeline";
+    timeline_container_div.appendChild(timeline_div);
+
+    var selected_year_div = document.createElement("div");
+    selected_year_div.id = "selected_year";
+    selected_year_div.innerHTML = "1939"; // XXX Use the markers
+    timeline_div.appendChild(selected_year_div);
+
+    var timeline_slider = document.createElement("div");
+    timeline_slider.id = "timeline_slider";
+    timeline_slider.innerHTML = '1939 <input type="range" min="1939" max="1945" value="1939" id="timeline_range" onchange="updateTimer(this.value)"> 1945';
+    timeline_div.appendChild(timeline_slider);
+
+    return timeline_container_div;
+}
 
 var map;
 
@@ -289,7 +307,11 @@ function initializeMap() {
             },
         ],
     };
+
     map.infowindow = new google.maps.InfoWindow({size: new google.maps.Size(50, 50)});
+
+    var timeline_container_div = createTimeline();
+    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(timeline_container_div);
 
     var edit_div = document.createElement("div");
     edit_div.style.margin = "5px";

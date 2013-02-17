@@ -16,6 +16,7 @@ header {
 div#timeline {
   text-align: center;
   margin: 20px 0px;
+  background-color: white;
 }
 
 div#selected_year {
