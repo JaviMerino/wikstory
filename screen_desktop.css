@@ -19,7 +19,7 @@ div#timeline {
   background-color: white;
 }
 
-div#selected_year {
+div.selected_year {
   font-size: 32px;
 }
 

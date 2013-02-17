@@ -1,3 +1,39 @@
+/* This will be moved to a JSON file soon */
+var markers = {
+    1939: [
+        { lat: 51.869, lon: 14.64, text: "Germany invades Poland" },
+    ],
+    1940: [
+        {lat: 49.74, lon: 4.81, text: "Germany invades France"},
+        {lat: 51.86, lon: -0.87, text: "Battle of Britain"},
+    ],
+    1941: [
+        {lat: 55.61, lon: 26.5, text: "Germany attacks the Soviet Union"},
+        {lat: 21.33, lon: -157.98, text: "Japanese attack on Pearl Harbor"},
+    ],
+    1942: [
+        {lat: 40.3, lon: -73.4, text: "Second Happy Time"},
+        {lat: 28.2, lon: -177.35, text: "Battle of Midway"},
+        {lat: 48.67, lon: 44.3, text: "Battle of Stalingrad"},
+        {lat: 30.837, lon: 28.98, text: "Battles of El Alamein"},
+    ],
+    1943: [
+        {lat: 7.12, lon: 171.1, text: "Gilbert and Marshall Islands Campaign"},
+        {lat: 37.65, lon: 14.05, text: "Allied invasion of Italy"},
+        {lat: 52.97, lon: 36.07, text: "Operation Kutuzov"},
+    ],
+    1944: [
+        {lat: 49.37, lon: 0.88, text: "Normandy Landings"},
+        {lat: 53.89, lon: 28.24, text: "Operation Bagration"},
+        {lat: 20, lon: 130, text: "Battle of the Philippines"},
+    ],
+    1945: [
+        {lat: 52.52, lon: 13.37, text: "Germany surrenders"},
+        {lat: 24.78, lon: 141.32, text: "Battle of Iwo Jima"},
+        {lat: 36, lon: 139.6, text: "Japan surrenders"},
+    ],
+};
+
 function showPerson(n, name, show) {
     if (n.innerText.indexOf(name) != -1) {
         if (show)
@@ -9,8 +45,6 @@ function showPerson(n, name, show) {
 
 function updateTimer(year)
 {
-    document.getElementById("selected_year").innerHTML = year;
-
     var people = document.getElementById("people").getElementsByClassName("person");
     var i;
     for (i = 0; i < people.length; i++) {
@@ -23,7 +57,7 @@ function updateTimer(year)
     if (map)
         map.update(year);
 }
-document.addEventListener("DOMContentLoaded", function(){updateTimer(document.getElementById("selected_year").innerHTML)});
+document.addEventListener("DOMContentLoaded", function(){updateTimer(Object.keys(markers)[0])});
 
 function initializeShortBio() {
     function ShortBio(shortBioNode) {
@@ -109,7 +143,7 @@ function createTimeline()
     timeline_container_div.appendChild(timeline_div);
 
     var selected_year_div = document.createElement("div");
-    selected_year_div.id = "selected_year";
+    selected_year_div.className = "selected_year";
     selected_year_div.innerHTML = "1939"; // XXX Use the markers
     timeline_div.appendChild(selected_year_div);
 
@@ -152,41 +186,6 @@ function initializeMap() {
 
     map.shown_markers = [];
     map.shown_areas = [];
-
-    map.markers = {
-        1939: [
-            { lat: 51.869, lon: 14.64, text: "Germany invades Poland" },
-        ],
-        1940: [
-            {lat: 49.74, lon: 4.81, text: "Germany invades France"},
-            {lat: 51.86, lon: -0.87, text: "Battle of Britain"},
-        ],
-        1941: [
-            {lat: 55.61, lon: 26.5, text: "Germany attacks the Soviet Union"},
-            {lat: 21.33, lon: -157.98, text: "Japanese attack on Pearl Harbor"},
-        ],
-        1942: [
-            {lat: 40.3, lon: -73.4, text: "Second Happy Time"},
-            {lat: 28.2, lon: -177.35, text: "Battle of Midway"},
-            {lat: 48.67, lon: 44.3, text: "Battle of Stalingrad"},
-            {lat: 30.837, lon: 28.98, text: "Battles of El Alamein"},
-        ],
-        1943: [
-            {lat: 7.12, lon: 171.1, text: "Gilbert and Marshall Islands Campaign"},
-            {lat: 37.65, lon: 14.05, text: "Allied invasion of Italy"},
-            {lat: 52.97, lon: 36.07, text: "Operation Kutuzov"},
-        ],
-        1944: [
-            {lat: 49.37, lon: 0.88, text: "Normandy Landings"},
-            {lat: 53.89, lon: 28.24, text: "Operation Bagration"},
-            {lat: 20, lon: 130, text: "Battle of the Philippines"},
-        ],
-        1945: [
-            {lat: 52.52, lon: 13.37, text: "Germany surrenders"},
-            {lat: 24.78, lon: 141.32, text: "Battle of Iwo Jima"},
-            {lat: 36, lon: 139.6, text: "Japan surrenders"},
-        ],
-    };
 
     map.occupation_areas = {
         1939: [
@@ -310,8 +309,8 @@ function initializeMap() {
 
     map.infowindow = new google.maps.InfoWindow({size: new google.maps.Size(50, 50)});
 
-    var timeline_container_div = createTimeline();
-    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(timeline_container_div);
+    map.timeline_container_div = createTimeline();
+    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(map.timeline_container_div);
 
     var edit_div = document.createElement("div");
     edit_div.style.margin = "5px";
@@ -351,7 +350,7 @@ function initializeMap() {
     map.updateMarkers = function(year) {
         this.removeMarkers();
 
-        for (var i = 0, m; m = this.markers[year][i]; i++)
+        for (var i = 0, m; m = markers[year][i]; i++)
             this.addMarker(m);
     }
 
@@ -403,6 +402,8 @@ function initializeMap() {
     }
 
     map.update = function(year) {
+        map.timeline_container_div.getElementsByClassName("selected_year")[0].innerHTML = year;
+
         map.updateMarkers(year);
         map.updateOccupationAreas(year);
     }
@@ -474,6 +475,6 @@ function initializeMap() {
     }
     google.maps.event.addListener(map.drawingManager, 'overlaycomplete', map.overlayComplete);
 
-    map.update(document.getElementById("selected_year").innerHTML);
+    map.update(Object.keys(markers)[0]);
 }
 google.maps.event.addDomListener(window, "load", initializeMap);
