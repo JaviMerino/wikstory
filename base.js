@@ -1,5 +1,5 @@
 function showPerson(n, name, show) {
-    if (n.innerText.indexOf(name) != -1) {
+    if (n.innerHTML.indexOf(name) != -1) {
         if (show)
             n.style.display = "";
         else
