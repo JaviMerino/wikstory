@@ -134,6 +134,7 @@ function initializeMap() {
 
     map.shown_markers = [];
     map.shown_areas = [];
+    map.shown_icons = [];
 
     map.markers = {
         1939: [
@@ -172,8 +173,11 @@ function initializeMap() {
 
     map.occupation_areas = {
         1939: [
-            /* UK */
             {
+                icon: {
+                    img: "uk.png",
+                    pos: [ 53.73, -3.69 ],
+                },
                 path: [
                     new google.maps.LatLng(58.86, -4.12),
                     new google.maps.LatLng(54.13, -5.61),
@@ -184,8 +188,11 @@ function initializeMap() {
                 ],
                 color: "#FF0000",
             },
-            /* France */
             {
+                icon: {
+                    img: "france.png",
+                    pos: [ 46.65, 3.04 ],
+                },
                 path: [
                     new google.maps.LatLng(50.98, 1.99),
                     new google.maps.LatLng(48.35, -4.86),
@@ -211,8 +218,11 @@ function initializeMap() {
                 ],
                 color: "#FF0000",
             },
-            /* Axis */
             {
+                icon: {
+                    img: "germany.png",
+                    pos: [ 48.55, 12.02 ],
+                },
                 path: [
                     new google.maps.LatLng(54.8, 9.35),
                     new google.maps.LatLng(52.37, 7.02),
@@ -230,8 +240,11 @@ function initializeMap() {
                 ],
                 color: "#0000FF",
             },
-            /* USSR */
             {
+                icon: {
+                    img: "soviet_union.png",
+                    pos: [ 59.9767, 35.31 ],
+                },
                 path: [
                     new google.maps.LatLng(69.79, 30.89),
                     new google.maps.LatLng(56.10, 28.34),
@@ -244,8 +257,11 @@ function initializeMap() {
             },
         ],
         1940: [
-            /* UK */
             {
+                icon: {
+                    img: "uk.png",
+                    pos: [ 53.73, -3.69 ],
+                },
                 path: [
                     new google.maps.LatLng(58.86, -4.12),
                     new google.maps.LatLng(54.13, -5.61),
@@ -256,8 +272,11 @@ function initializeMap() {
                 ],
                 color: "#FF0000",
             },
-            /* Axis */
             {
+                icon: {
+                    img: "germany.png",
+                    pos: [ 48.55, 12.02 ],
+                },
                 path: [
                     new google.maps.LatLng(54.8, 9.35),
                     new google.maps.LatLng(50.98, 1.99),
@@ -274,8 +293,11 @@ function initializeMap() {
                 ],
                 color: "#0000FF",
             },
-            /* USSR */
             {
+                icon: {
+                    img: "soviet_union.png",
+                    pos: [ 59.9767, 35.31 ],
+                },
                 path: [
                     new google.maps.LatLng(69.79, 30.89),
                     new google.maps.LatLng(56.10, 28.34),
@@ -337,6 +359,10 @@ function initializeMap() {
         for (var i = 0, a; a = this.shown_areas[i]; i++)
             a.setMap(null);
         this.shown_areas.length = 0;
+
+        for (var j = 0, i; i = this.shown_icons[j]; j++)
+            i.setMap(null);
+        this.shown_icons.length = 0;
     }
 
     map.addOccupationArea = function(area) {
@@ -350,6 +376,18 @@ function initializeMap() {
 
         this.shown_areas.push(area_poly);
         area_poly.setMap(this);
+
+        if (area.icon) {
+            var lat_lng = new google.maps.LatLng(area.icon.pos[0], area.icon.pos[1]);
+            var icon = new google.maps.Marker({
+                clickable: false,
+                icon: "img/icons/" + area.icon.img,
+                map: this,
+                position: lat_lng,
+            });
+
+            this.shown_icons.push(icon);
+        }
     }
 
     map.updateOccupationAreas = function(year) {
