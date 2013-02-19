@@ -366,7 +366,7 @@ function initializeMap() {
     }
 
     map.addOccupationArea = function(area) {
-        area_poly = new google.maps.Polygon({
+        var area_poly = new google.maps.Polygon({
             paths: area.path,
             strokeColor: area.color,
             strokeOpacity: 0.8,
