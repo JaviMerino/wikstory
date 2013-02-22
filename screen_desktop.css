@@ -34,6 +34,7 @@ div#mapnpeople {
 div#map_container {
   margin-right: 200px;
   overflow: hidden;
+  position: relative;
 }
 
 div#people {

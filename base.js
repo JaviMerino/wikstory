@@ -1,3 +1,10 @@
+var topic = {
+    map: {
+        center: {lat: 51.869, lon: 14.64},
+        zoom: 4,
+    },
+};
+
 function showPerson(n, name, show) {
     if (n.innerHTML.indexOf(name) != -1) {
         if (show)
@@ -99,3 +106,21 @@ function fillScreen()
 }
 window.addEventListener("load", fillScreen);
 window.addEventListener("resize", fillScreen);
+
+var map;
+
+function initializeMap()
+{
+    var center = new Microsoft.Maps.Location(topic.map.center.lat, topic.map.center.lon);
+    var map_options = {
+        credentials: "AqagUV4QNBjwoaerEmW1XMLHlccfzBEjTi9PXlrLhVuXgDQa22OxGzf6fdBXMJz9",
+        center: center,
+        zoom: topic.map.zoom,
+        mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+        enableClickLogo: false,
+        showMapTypeSelector: false,
+    };
+
+    map = new Microsoft.Maps.Map(document.getElementById("map_container"), map_options);
+}
+window.addEventListener("load", initializeMap);
