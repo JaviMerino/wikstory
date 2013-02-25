@@ -37,6 +37,157 @@ var topic = {
             {lat: 36, lon: 139.6, text: "Japan surrenders"},
         ],
     },
+    regions: {
+        1939: [
+            {
+                /* UK */
+                path: [
+                    {lat: 58.86, lon: -4.12},
+                    {lat: 54.13, lon: -5.61},
+                    {lat: 53.80, lon: -3.61},
+                    {lat: 52.13, lon: -4.61},
+                    {lat: 50.13, lon: -5.61},
+                    {lat: 51.19, lon: 1.4},
+                ],
+                color: {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                },
+            },
+            {
+                /* France */
+                path: [
+                    {lat: 50.98, lon: 1.99},
+                    {lat: 48.35, lon: -4.86},
+                    {lat: 43.31, lon: -1.65},
+                    {lat: 42.52, lon: 3.07},
+                    {lat: 44.82, lon: 6.96},
+                    {lat: 47.62, lon: 7.62},
+                    {lat: 48.96, lon: 8.12},
+                ],
+                color: {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                },
+            },
+            /* Poland */
+            {
+                path: [
+                    {lat: 53.83, lon: 14.23},
+                    {lat: 51.869, lon: 14.64},
+                    {lat: 51.00, lon: 15.07},
+                    {lat: 49.04, lon: 22.58},
+                    {lat: 47.99, lon: 29.15},
+                    {lat: 52.11, lon: 31.77},
+                    {lat: 56.10, lon: 28.34},
+                    {lat: 53.92, lon: 23.53},
+                ],
+                color: {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                },
+            },
+            {
+                /* Germany */
+                path: [
+                    {lat: 54.8, lon: 9.35},
+                    {lat: 52.37, lon: 7.02},
+                    {lat: 48.96, lon: 8.12},
+                    {lat: 47.62, lon: 7.62},
+                    {lat: 46.78, lon: 10.41},
+                    {lat: 44.82, lon: 6.96},
+                    {lat: 43.98, lon: 10.14},
+                    {lat: 40.14, lon: 16.74},
+                    {lat: 46.32, lon: 13.64},
+                    {lat: 48.76, lon: 22.36},
+                    {lat: 51.00, lon: 15.07},
+                    {lat: 51.869, lon: 14.64},
+                    {lat: 53.83, lon: 14.23},
+                ],
+                color: {
+                    red: 0,
+                    green: 0,
+                    blue: 255,
+                },
+            },
+            {
+                /* Soviet Union */
+                path: [
+                    {lat: 69.79, lon: 30.89},
+                    {lat: 56.10, lon: 28.34},
+                    {lat: 52.11, lon: 31.77},
+                    {lat: 47.99, lon: 29.15},
+                    {lat: 41.9, lon: 41.72},
+                    {lat: 67.97, lon: 50.0},
+                ],
+                color: {
+                    red: 0,
+                    green: 187,
+                    blue: 0,
+                },
+            },
+        ],
+        1940: [
+            {
+                /* UK */
+                path: [
+                    {lat: 58.86, lon: -4.12},
+                    {lat: 54.13, lon: -5.61},
+                    {lat: 53.80, lon: -3.61},
+                    {lat: 52.13, lon: -4.61},
+                    {lat: 50.13, lon: -5.61},
+                    {lat: 51.19, lon: 1.4},
+                ],
+                color: {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                },
+            },
+            {
+                /* Germany */
+                path: [
+                    {lat: 54.8, lon: 9.35},
+                    {lat: 50.98, lon: 1.99},
+                    {lat: 48.35, lon: -4.86},
+                    {lat: 43.31, lon: -1.65},
+                    {lat: 42.52, lon: 3.07},
+                    {lat: 44.82, lon: 6.96},
+                    {lat: 43.98, lon: 10.14},
+                    {lat: 40.14, lon: 16.74},
+                    {lat: 46.32, lon: 13.64},
+                    {lat: 47.99, lon: 29.15},
+                    {lat: 49.04, lon: 22.58},
+                    {lat: 53.92, lon: 23.53},
+                ],
+                color: {
+                    red: 0,
+                    green: 0,
+                    blue: 255,
+                },
+            },
+            {
+                /* Soviet Union */
+                path: [
+                    {lat: 69.79, lon: 30.89},
+                    {lat: 56.10, lon: 28.34},
+                    {lat: 53.92, lon: 23.53},
+                    {lat: 49.04, lon: 22.58},
+                    {lat: 47.99, lon: 29.15},
+                    {lat: 41.9, lon: 41.72},
+                    {lat: 67.97, lon: 50.0},
+                ],
+                color: {
+                    red: 0,
+                    green: 187,
+                    blue: 0,
+                },
+            },
+        ],
+    },
 };
 
 function showPerson(n, name, show) {
@@ -161,6 +312,7 @@ function initializeMap()
     map = new Microsoft.Maps.Map(document.getElementById("map_container"), map_options);
 
     map.shown_pushpins = [];
+    map.shown_regions = [];
 
     map.infobox = new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(0, 0), {visible: false});
     map.entities.push(map.infobox);
@@ -194,8 +346,40 @@ function initializeMap()
             this.addPushpin(p);
     }
 
+    map.removeRegions = function() {
+        for (var i = 0, r; r = this.shown_regions[i]; i++)
+            map.entities.remove(r);
+        this.shown_regions.length = 0;
+    }
+
+    map.addRegion = function(region) {
+        var path = [];
+
+        for (var i = 0, p; p = region.path[i]; i++) {
+            path.push(new Microsoft.Maps.Location(p.lat, p.lon));
+        }
+
+        /* Back to the beginning to paint the final stroke */
+        path.push(new Microsoft.Maps.Location(region.path[0].lat, region.path[0].lon));
+
+        var region_poly = new Microsoft.Maps.Polygon(path, {
+            strokeColor: new Microsoft.Maps.Color(204, region.color.red, region.color.green, region.color.blue),
+            fillColor: new Microsoft.Maps.Color(77, region.color.red, region.color.green, region.color.blue),
+        });
+
+        this.shown_regions.push(region_poly);
+        map.entities.push(region_poly);
+    }
+
+    map.updateRegions = function(year) {
+        this.removeRegions();
+        for (var i = 0, r; r = topic.regions[year][i]; i++)
+            this.addRegion(r);
+    }
+
     map.update = function(year) {
         map.updatePushpins(year);
+        map.updateRegions(year);
     }
 
     map.update(document.getElementById("selected_year").innerHTML);
