@@ -162,9 +162,20 @@ function initializeMap()
 
     map.shown_pushpins = [];
 
+    map.infobox = new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(0, 0), {visible: false});
+    map.entities.push(map.infobox);
+
     map.addPushpin = function(m) {
         var latlon = new Microsoft.Maps.Location(m.lat, m.lon);
-        var pushpin = new Microsoft.Maps.Pushpin(latlon, {text: m.text});
+        var pushpin = new Microsoft.Maps.Pushpin(latlon, {});
+
+        Microsoft.Maps.Events.addHandler(pushpin, 'click', function() {
+            map.infobox.setLocation(latlon);
+            map.infobox.setOptions({
+                visible: true,
+                description: m.text,
+            });
+        });
 
         map.entities.push(pushpin);
         this.shown_pushpins.push(pushpin);
