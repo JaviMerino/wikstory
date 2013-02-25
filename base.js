@@ -484,11 +484,10 @@ function initializeMap() {
         }
     }
 
-    map.overlayComplete = function(ev) {
+    google.maps.event.addListener(map.drawingManager, 'overlaycomplete', function(ev) {
         map.shown_areas.push(ev.overlay);
         map.drawingManager.setDrawingMode(null);
-    }
-    google.maps.event.addListener(map.drawingManager, 'overlaycomplete', map.overlayComplete);
+    });
 
     map.update(document.getElementById("selected_year").innerHTML);
 }
